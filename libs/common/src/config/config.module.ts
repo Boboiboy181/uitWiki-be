@@ -6,8 +6,11 @@ import * as Joi from 'joi';
   imports: [
     NestConfigModule.forRoot({
       envFilePath: '.env',
+      isGlobal: true,
       validationSchema: Joi.object({
         MONGODB_URI: Joi.string().required(),
+        CHATBOT_HOST: Joi.string().required(),
+        CHATBOT_PORT: Joi.number().required(),
       }),
     }),
   ],
