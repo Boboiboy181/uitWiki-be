@@ -11,6 +11,7 @@ import * as Joi from 'joi';
         MONGODB_URI: Joi.string().required(),
         CHATBOT_HOST: Joi.string().required(),
         CHATBOT_PORT: Joi.number().required(),
+        CHATBOT_API_URL: Joi.string().required(),
       }),
     }),
   ],

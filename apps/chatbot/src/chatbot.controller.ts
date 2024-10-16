@@ -10,4 +10,9 @@ export class ChatbotController {
   getHello(): string {
     return this.chatbotService.getHello();
   }
+
+  @MessagePattern({ cmd: 'send_message' })
+  async sendMessage(user_question: string): Promise<string> {
+    return this.chatbotService.sendMessage(user_question);
+  }
 }

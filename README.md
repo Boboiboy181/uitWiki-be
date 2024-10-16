@@ -24,50 +24,12 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+uitWiki is designed to provide students with a seamless way to interact with information about the University of Information Technology (UIT). The chatbot can answer questions related to academic matters, registration, tuition, and other university-related topics. It streamlines access to important information by allowing students to query data in natural language and get accurate responses.
 
-## Installation
+**Purpose:**
+The uitWiki is aimed at UIT students who need quick access to university-related information. It provides a user-friendly interface for asking questions, and it stores and retrieves conversation history for reference. It also supports an admin portal where lecturers can manage and upload PDF documents to update the system’s knowledge base.
 
-```bash
-$ yarn install
-```
+This project is ideal for:
 
-## Running the app
-
-```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+- UIT students seeking quick answers about the university.
+- Administrators or lecturers who need to maintain and update relevant documents for student queries.
