@@ -1,13 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
+import { SessionRepository } from './session.repository';
 
 @Injectable()
 export class SessionService {
-  getHello(): string {
-    return 'Hello World!';
-  }
+  constructor(private readonly sessionRepository: SessionRepository) {}
 
   async createSession(): Promise<string> {
-    return uuidv4();
+    const newId = uuidv4();
+
+    await this.sessionRepository.create({
+      sessionId: newId,
+      messages: [],
+      isActive: true,
+    });
+
+    return newId;
   }
 }
