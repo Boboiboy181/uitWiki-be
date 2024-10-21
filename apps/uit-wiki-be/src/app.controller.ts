@@ -11,7 +11,14 @@ export class AppController {
     return await this.appService.getHello();
   }
 
-  @Post('send_message')
+  @Get('/create_session')
+  async createSession(): Promise<{
+    sessionId: string;
+  }> {
+    return await this.appService.createSession();
+  }
+
+  @Post('/send_message')
   @HttpCode(200)
   async sendMessage(@Body() sendMessageDto: SendMessageDto): Promise<{
     chatbot_response: string;
