@@ -1,7 +1,10 @@
 import { CHATBOT_SERVICE, SESSION_SERVICE } from '@app/common';
+import { Message } from '@app/common/types';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { SessionDocument } from 'apps/session/src/models/session.schema';
 import { firstValueFrom } from 'rxjs';
+import { v4 as uuidv4 } from 'uuid';
 import { SendMessageDto } from './dtos/send-message.dto';
 
 @Injectable()
@@ -15,12 +18,30 @@ export class AppService {
     return firstValueFrom(this.chatbotService.send({ cmd: 'hello' }, ''));
   }
 
-  async sendMessage(sendMessageDto: SendMessageDto): Promise<{ chatbot_response: string }> {
-    const { user_question } = sendMessageDto;
-    const response: string = await firstValueFrom(this.chatbotService.send({ cmd: 'send_message' }, user_question));
-    return {
-      chatbot_response: response,
-    };
+  async sendMessage(sendMessageDto: SendMessageDto): Promise<Message> {
+    const { user_question, sessionId, timestamp } = sendMessageDto;
+
+    const botResponse: string = await firstValueFrom(this.chatbotService.send({ cmd: 'send_message' }, user_question));
+
+    const messages: Message[] = [
+      {
+        content: user_question,
+        sender: 'user',
+        timestamp: Number(timestamp),
+        messageId: uuidv4(),
+      },
+      {
+        content: botResponse,
+        sender: 'bot',
+        timestamp: Date.now(),
+        messageId: uuidv4(),
+      },
+    ];
+
+    await this.sessionService.send({ cmd: 'add_message' }, { sessionId, message: messages[0] }).toPromise();
+    await this.sessionService.send({ cmd: 'add_message' }, { sessionId, message: messages[1] }).toPromise();
+
+    return messages[1];
   }
 
   async createSession(): Promise<{ sessionId: string }> {
@@ -28,5 +49,9 @@ export class AppService {
     return {
       sessionId,
     };
+  }
+
+  async getSession(sessionId: string): Promise<SessionDocument> {
+    return await firstValueFrom(this.sessionService.send({ cmd: 'get_session' }, sessionId));
   }
 }

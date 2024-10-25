@@ -1,6 +1,6 @@
 import { AbstractDocument } from '@app/common';
+import { Message } from '@app/common/types';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Message } from '../types/message.type';
 
 @Schema({ versionKey: false, timestamps: true })
 export class SessionDocument extends AbstractDocument {
