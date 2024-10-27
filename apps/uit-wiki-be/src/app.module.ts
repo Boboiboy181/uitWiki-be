@@ -16,7 +16,7 @@ import { AppService } from './app.service';
         useFactory: (configService: ConfigService) => ({
           transport: Transport.TCP,
           options: {
-            host: '0.0.0.0',
+            host: configService.get('CHATBOT_HOST'),
             port: configService.get('CHATBOT_PORT'),
           },
         }),
@@ -27,7 +27,7 @@ import { AppService } from './app.service';
         useFactory: (configService: ConfigService) => ({
           transport: Transport.TCP,
           options: {
-            host: '0.0.0.0',
+            host: configService.get('SESSION_HOST'),
             port: configService.get('SESSION_PORT'),
           },
         }),

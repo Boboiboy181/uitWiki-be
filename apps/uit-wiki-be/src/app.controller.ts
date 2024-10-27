@@ -1,6 +1,5 @@
-import { Message } from '@app/common/types';
+import { Message, Session } from '@app/common/types';
 import { Body, Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
-import { SessionDocument } from 'apps/session/src/models/session.schema';
 import { AppService } from './app.service';
 import { SendMessageDto } from './dtos/send-message.dto';
 
@@ -21,7 +20,7 @@ export class AppController {
   }
 
   @Get('/get_session')
-  async getSession(@Query('sessionId') sessionId: string): Promise<SessionDocument> {
+  async getSession(@Query('sessionId') sessionId: string): Promise<Session> {
     return await this.appService.getSession(sessionId);
   }
 

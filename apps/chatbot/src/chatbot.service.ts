@@ -11,7 +11,7 @@ export class ChatbotService {
   ) {}
 
   getHello(): string {
-    return 'Hello World With Microservices!';
+    return 'Hello World!';
   }
 
   async sendMessage(user_question: string): Promise<string> {

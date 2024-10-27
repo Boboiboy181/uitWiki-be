@@ -1,8 +1,7 @@
 import { CHATBOT_SERVICE, SESSION_SERVICE } from '@app/common';
-import { Message } from '@app/common/types';
+import { Message, Session } from '@app/common/types';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { SessionDocument } from 'apps/session/src/models/session.schema';
 import { firstValueFrom } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 import { SendMessageDto } from './dtos/send-message.dto';
@@ -51,7 +50,7 @@ export class AppService {
     };
   }
 
-  async getSession(sessionId: string): Promise<SessionDocument> {
+  async getSession(sessionId: string): Promise<Session> {
     return await firstValueFrom(this.sessionService.send({ cmd: 'get_session' }, sessionId));
   }
 }
