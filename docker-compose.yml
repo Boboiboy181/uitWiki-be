@@ -27,6 +27,19 @@ services:
     volumes:
       - .:/usr/src/app
 
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: development
+    command: yarn start:dev auth
+    env_file:
+      - .env
+    ports:
+      - '3001:3001'
+    volumes:
+      - .:/usr/src/app
+
   uit-wiki-be:
     build:
       context: .
@@ -35,6 +48,7 @@ services:
     depends_on:
       - session
       - chatbot
+      - auth
     command: yarn start:dev uit-wiki-be
     env_file:
       - .env
