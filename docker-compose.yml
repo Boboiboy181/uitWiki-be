@@ -6,7 +6,7 @@ services:
       target: development
     command: yarn start:dev chatbot
     env_file:
-      - .env
+      - ./apps/chatbot/.env
     environment:
       - CHATBOT_API_URL=http://host.docker.internal:8000/api/v1/chat_bot/send_message
     ports:
@@ -21,7 +21,7 @@ services:
       target: development
     command: yarn start:dev session
     env_file:
-      - .env
+      - ./apps/session/.env
     ports:
       - '3002:3002'
     volumes:
@@ -34,7 +34,7 @@ services:
       target: development
     command: yarn start:dev auth
     env_file:
-      - .env
+      - ./apps/auth/.env
     ports:
       - '3001:3001'
     volumes:
@@ -51,7 +51,7 @@ services:
       - auth
     command: yarn start:dev uit-wiki-be
     env_file:
-      - .env
+      - ./apps/uit-wiki-be/.env
     ports:
       - '3000:3000'
     volumes:

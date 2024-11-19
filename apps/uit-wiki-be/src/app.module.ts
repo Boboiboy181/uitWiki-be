@@ -1,14 +1,23 @@
-import { CHATBOT_SERVICE, ConfigModule, DatabaseModule, LoggerModule, SESSION_SERVICE } from '@app/common';
+import { CHATBOT_SERVICE, LoggerModule, SESSION_SERVICE } from '@app/common';
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
   imports: [
-    DatabaseModule,
-    ConfigModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: './apps/uit-wiki-be/.env',
+      validationSchema: Joi.object({
+        CHATBOT_HOST: Joi.string().required(),
+        CHATBOT_PORT: Joi.number().required(),
+        SESSION_HOST: Joi.string().required(),
+        SESSION_PORT: Joi.number().required(),
+      }),
+    }),
     LoggerModule,
     ClientsModule.registerAsync([
       {
