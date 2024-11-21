@@ -1,4 +1,4 @@
-import { CHATBOT_SERVICE, LoggerModule, SESSION_SERVICE } from '@app/common';
+import { AUTH_SERVICE, CHATBOT_SERVICE, LoggerModule, SESSION_SERVICE } from '@app/common';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
@@ -38,6 +38,17 @@ import { AppService } from './app.service';
           options: {
             host: configService.get('SESSION_HOST'),
             port: configService.get('SESSION_PORT'),
+          },
+        }),
+        inject: [ConfigService],
+      },
+      {
+        name: AUTH_SERVICE,
+        useFactory: (configService: ConfigService) => ({
+          transport: Transport.TCP,
+          options: {
+            host: configService.get('AUTH_HOST'),
+            port: configService.get('AUTH_PORT'),
           },
         }),
         inject: [ConfigService],

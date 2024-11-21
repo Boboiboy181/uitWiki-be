@@ -21,4 +21,9 @@ export class SessionController {
   async getSession(sessionId: string): Promise<SessionDocument> {
     return this.sessionService.getSession(sessionId);
   }
+
+  @MessagePattern({ cmd: 'get_sessions' })
+  async getSessions(): Promise<SessionDocument[]> {
+    return this.sessionService.getSessions();
+  }
 }

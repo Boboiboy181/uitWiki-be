@@ -36,4 +36,8 @@ export class SessionService {
 
     return await this.sessionRepository.findOne({ sessionId });
   }
+
+  async getSessions(): Promise<SessionDocument[]> {
+    return await this.sessionRepository.findAll({});
+  }
 }

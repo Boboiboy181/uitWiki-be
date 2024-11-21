@@ -53,4 +53,8 @@ export class AppService {
   async getSession(sessionId: string): Promise<Session> {
     return await firstValueFrom(this.sessionService.send({ cmd: 'get_session' }, sessionId));
   }
+
+  async getSessions(): Promise<Session[]> {
+    return await firstValueFrom(this.sessionService.send({ cmd: 'get_sessions' }, ''));
+  }
 }

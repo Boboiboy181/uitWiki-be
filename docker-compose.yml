@@ -37,6 +37,7 @@ services:
       - ./apps/auth/.env
     ports:
       - '3001:3001'
+      - '3005:3005'
     volumes:
       - .:/usr/src/app
 
