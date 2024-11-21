@@ -14,6 +14,7 @@ import { SessionService } from './session.service';
       envFilePath: './apps/session/.env',
       validationSchema: Joi.object({
         MONGODB_URI: Joi.string().required(),
+        SESSION_PORT: Joi.number().required(),
       }),
     }),
     LoggerModule,

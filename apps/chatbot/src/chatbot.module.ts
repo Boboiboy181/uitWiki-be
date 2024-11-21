@@ -13,6 +13,7 @@ import { ChatbotService } from './chatbot.service';
       envFilePath: './apps/chatbot/.env',
       validationSchema: Joi.object({
         CHATBOT_API_URL: Joi.string().required(),
+        CHATBOT_PORT: Joi.number().required(),
       }),
     }),
     LoggerModule,
