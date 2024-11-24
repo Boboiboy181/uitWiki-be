@@ -1,7 +1,6 @@
+import { CreateDocumentDto, UpdateDocumentDto } from '@app/common/dtos/document';
 import { Injectable } from '@nestjs/common';
 import { DocumentRepository } from './document.repository';
-import { CreateDocumentDto } from './dtos/create-document.dto';
-import { UpdateDocumentDto } from './dtos/update-document.dto';
 
 @Injectable()
 export class DocumentService {

@@ -5,6 +5,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { DocumentModule } from './document/document.module';
 
 @Module({
   imports: [
@@ -16,6 +17,10 @@ import { AppService } from './app.service';
         CHATBOT_PORT: Joi.number().required(),
         SESSION_HOST: Joi.string().required(),
         SESSION_PORT: Joi.number().required(),
+        AUTH_HOST: Joi.string().required(),
+        AUTH_PORT: Joi.number().required(),
+        DOCUMENT_HOST: Joi.string().required(),
+        DOCUMENT_PORT: Joi.number().required(),
       }),
     }),
     LoggerModule,
@@ -54,6 +59,7 @@ import { AppService } from './app.service';
         inject: [ConfigService],
       },
     ]),
+    DocumentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
