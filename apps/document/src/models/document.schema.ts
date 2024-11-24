@@ -20,6 +20,9 @@ export class Document extends AbstractDocument {
 
   @Prop({ default: false })
   isDeleted?: boolean;
+
+  @Prop({ default: true })
+  isActive?: boolean;
 }
 
 export const DocumentSchema = SchemaFactory.createForClass(Document);

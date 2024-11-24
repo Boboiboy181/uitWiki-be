@@ -1,6 +1,5 @@
-import { JwtAuthGuard } from '@app/common';
 import { Message, Session } from '@app/common/types';
-import { Body, Controller, Get, HttpCode, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { SendMessageDto } from './dtos/send-message.dto';
 
@@ -25,7 +24,6 @@ export class AppController {
     return await this.appService.getSession(sessionId);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('/get_sessions')
   async getSessions(): Promise<Session[]> {
     return await this.appService.getSessions();
