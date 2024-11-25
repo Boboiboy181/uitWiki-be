@@ -16,7 +16,7 @@ export class UploadService {
     });
   }
 
-  async uploadFile(file: Express.Multer.File): Promise<string> {
+  async uploadFile(file: Express.Multer.File): Promise<{ documentUrl: string; documentKey: string }> {
     const bucketName = this.configService.get('AWS_BUCKET_NAME');
     const fileKey = `${this.configService.get('AWS_PREFIX_NAME')}/${file.originalname}`;
 
@@ -29,6 +29,9 @@ export class UploadService {
 
     await this.s3Client.send(command);
 
-    return `https://${bucketName}.s3.${this.configService.get('AWS_REGION')}.amazonaws.com/${fileKey}`;
+    return {
+      documentUrl: `https://${bucketName}.s3.${this.configService.get('AWS_REGION')}.amazonaws.com/${fileKey}`,
+      documentKey: fileKey,
+    };
   }
 }

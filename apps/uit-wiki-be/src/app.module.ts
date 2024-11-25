@@ -1,4 +1,4 @@
-import { CHATBOT_SERVICE, LoggerModule, SESSION_SERVICE, UploadModule } from '@app/common';
+import { LoggerModule, SESSION_SERVICE, UploadModule } from '@app/common';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
@@ -6,6 +6,7 @@ import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { ChatbotModule } from './chatbot/chatbot.module';
 import { DocumentModule } from './document/document.module';
 
 @Module({
@@ -14,24 +15,11 @@ import { DocumentModule } from './document/document.module';
       isGlobal: true,
       envFilePath: './apps/uit-wiki-be/.env',
       validationSchema: Joi.object({
-        CHATBOT_HOST: Joi.string().required(),
-        CHATBOT_PORT: Joi.number().required(),
         SESSION_HOST: Joi.string().required(),
         SESSION_PORT: Joi.number().required(),
       }),
     }),
     ClientsModule.registerAsync([
-      {
-        name: CHATBOT_SERVICE,
-        useFactory: (configService: ConfigService) => ({
-          transport: Transport.TCP,
-          options: {
-            host: configService.get('CHATBOT_HOST'),
-            port: configService.get('CHATBOT_PORT'),
-          },
-        }),
-        inject: [ConfigService],
-      },
       {
         name: SESSION_SERVICE,
         useFactory: (configService: ConfigService) => ({
@@ -48,6 +36,7 @@ import { DocumentModule } from './document/document.module';
     DocumentModule,
     UploadModule,
     AuthModule,
+    ChatbotModule,
   ],
   controllers: [AppController],
   providers: [AppService],

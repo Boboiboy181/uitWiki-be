@@ -1,21 +1,13 @@
-import { IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsObject, IsString, IsUrl } from 'class-validator';
 
 export class CreateDocumentDto {
-  @IsString()
-  @IsNotEmpty()
-  title: string;
-
-  @IsString()
-  @IsOptional()
-  description?: string;
-
   @IsUrl()
   @IsNotEmpty()
-  fileUrl: string;
+  documentUrl: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  size: number;
+  documentKey: string;
 
   @IsObject()
   @IsNotEmpty()

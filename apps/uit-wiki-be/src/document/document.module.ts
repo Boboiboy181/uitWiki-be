@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import * as Joi from 'joi';
 import { AuthModule } from '../auth/auth.module';
+import { ChatbotModule } from '../chatbot/chatbot.module';
 import { DocumentController } from './document.controller';
 import { DocumentService } from './document.service';
 
@@ -31,6 +32,7 @@ import { DocumentService } from './document.service';
       },
     ]),
     AuthModule,
+    ChatbotModule,
   ],
   controllers: [DocumentController],
   providers: [DocumentService],

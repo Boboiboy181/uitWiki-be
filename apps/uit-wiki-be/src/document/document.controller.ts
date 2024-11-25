@@ -1,5 +1,5 @@
 import { JwtAuthGuard } from '@app/common';
-import { CreateDocumentDto, UpdateDocumentDto } from '@app/common/dtos/document';
+import { CreateDocumentDto, DocumentDto, UpdateDocumentDto } from '@app/common/dtos/document';
 import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { DocumentService } from './document.service';
 
@@ -11,8 +11,8 @@ export class DocumentController {
   constructor(private readonly documentService: DocumentService) {}
 
   @Post()
-  create(@Body() createDocumentDto: Omit<CreateDocumentDto, ''>) {
-    return this.documentClient.send('createDocument', createDocumentDto);
+  create(@Body() createDocumentDto: CreateDocumentDto): Promise<DocumentDto> {
+    return this.documentService.create(createDocumentDto);
   }
 
   @Get()
@@ -32,6 +32,6 @@ export class DocumentController {
 
   @Delete(':_id')
   remove(@Param('_id') _id: string) {
-    return this.documentClient.send('removeDocument', _id);
+    return this.documentService.remove(_id);
   }
 }

@@ -9,7 +9,12 @@ async function bootstrap() {
 
   app.useLogger(app.get(Logger));
   app.use(cookieParser());
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
   app.setGlobalPrefix('api/v1');
   app.enableCors({
     origin: ['http://localhost:5173'],

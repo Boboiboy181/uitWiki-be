@@ -12,7 +12,6 @@ export class UploadController {
     if (!file) {
       throw new Error('No file provided');
     }
-    const fileUrl = await this.uploadService.uploadFile(file);
-    return { url: fileUrl };
+    return await this.uploadService.uploadFile(file);
   }
 }

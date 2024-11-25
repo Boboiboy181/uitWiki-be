@@ -14,13 +14,13 @@ export class AppService {
   ) {}
 
   async getHello(): Promise<string> {
-    return firstValueFrom(this.chatbotService.send({ cmd: 'hello' }, ''));
+    return firstValueFrom(this.chatbotService.send('hello', ''));
   }
 
   async sendMessage(sendMessageDto: SendMessageDto): Promise<Message> {
     const { user_question, sessionId, timestamp } = sendMessageDto;
 
-    const botResponse: string = await firstValueFrom(this.chatbotService.send({ cmd: 'send_message' }, user_question));
+    const botResponse: string = await firstValueFrom(this.chatbotService.send('sendMessage', user_question));
 
     const messages: Message[] = [
       {
