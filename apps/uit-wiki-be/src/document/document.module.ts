@@ -1,4 +1,4 @@
-import { DOCUMENT_SERVICE } from '@app/common';
+import { DOCUMENT_SERVICE, PineconeModule } from '@app/common';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
@@ -33,6 +33,7 @@ import { DocumentService } from './document.service';
     ]),
     AuthModule,
     ChatbotModule,
+    PineconeModule,
   ],
   controllers: [DocumentController],
   providers: [DocumentService],
