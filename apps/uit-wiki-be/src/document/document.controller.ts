@@ -1,10 +1,11 @@
-import { JwtAuthGuard } from '@app/common';
+import { JwtAuthGuard, Roles } from '@app/common';
 import { CreateDocumentDto, DocumentDto, UpdateDocumentDto } from '@app/common/dtos/document';
 import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { DocumentService } from './document.service';
 
 @Controller('document')
 @UseGuards(JwtAuthGuard)
+@Roles('admin')
 export class DocumentController {
   private documentClient = this.documentService.getClient();
 
