@@ -40,7 +40,7 @@ spec:
               value: '3002'
 
             - name: AUTH_HOST
-              value: auth
+              value: auth-tcp
             - name: AUTH_PORT
               value: '3001'
 

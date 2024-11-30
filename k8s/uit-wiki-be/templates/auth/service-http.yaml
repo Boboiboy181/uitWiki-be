@@ -2,14 +2,14 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: uit-wiki-be
-  name: uit-wiki-be
+    app: auth
+  name: auth-http
 spec:
   ports:
     - name: 'http'
-      port: 3000
+      port: 3005
       protocol: TCP
-      targetPort: 3000
+      targetPort: 3005
   selector:
-    app: uit-wiki-be
+    app: auth
   type: NodePort
