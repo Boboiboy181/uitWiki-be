@@ -1,4 +1,4 @@
-name: CI/CD for Docker Image Build and GCP Deployment
+name: CI/CD
 
 on:
   push:
