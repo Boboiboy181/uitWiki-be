@@ -8,7 +8,7 @@ on:
     paths-ignore:
       - 'README.md'
       - 'Dockerfile'
-      # - '.github/workflows/*'
+      - '.github/workflows/*'
 
 jobs:
   build:
@@ -39,10 +39,6 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
-
-      - name: Log in to Google Container Registry (GCR)
-        run: |
-          gcloud auth configure-docker
 
       - name: Build and push uit-wiki-be Docker image
         run: |
