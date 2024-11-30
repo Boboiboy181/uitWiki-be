@@ -1,4 +1,5 @@
 import { HttpException, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Pinecone } from '@pinecone-database/pinecone';
 import { VectorQueryDto } from '../dtos/vector';
 
@@ -6,9 +7,11 @@ import { VectorQueryDto } from '../dtos/vector';
 export class PineconeService {
   private pineconeClient: Pinecone;
 
+  constructor(private readonly configService: ConfigService) {}
+
   async onModuleInit() {
     this.pineconeClient = new Pinecone({
-      apiKey: 'd05ff847-fdcc-4592-9550-39116e977464',
+      apiKey: this.configService.get<string>('PINECONE_API_KEY'),
     });
   }
 

@@ -16,6 +16,7 @@ import { DocumentService } from './document.service';
       validationSchema: Joi.object({
         DOCUMENT_HOST: Joi.string().required(),
         DOCUMENT_PORT: Joi.number().required(),
+        PINECONE_API_KEY: Joi.string().required(),
       }),
     }),
     ClientsModule.registerAsync([
