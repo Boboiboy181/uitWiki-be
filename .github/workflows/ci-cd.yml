@@ -8,7 +8,7 @@ on:
     paths-ignore:
       - 'README.md'
       - 'Dockerfile'
-      - '.github/workflows/*'
+      # - '.github/workflows/*'
 
 jobs:
   build:
@@ -42,25 +42,20 @@ jobs:
 
       - name: Build and push uit-wiki-be Docker image
         run: |
-          docker build -t asia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/uit-wiki-be/production -f apps/uit-wiki-be/Dockerfile .
-          docker push asia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/uit-wiki-be/production
+          docker buildx build --platform linux/amd64,linux/arm64 -t asia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/uit-wiki-be/production -f apps/uit-wiki-be/Dockerfile --push .
 
       - name: Build and push auth Docker image
         run: |
-          docker build -t asia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/auth/production -f apps/auth/Dockerfile .
-          docker push asia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/auth/production
+          docker buildx build --platform linux/amd64,linux/arm64 -t asia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/auth/production -f apps/auth/Dockerfile --push .
 
       - name: Build and push session Docker image
         run: |
-          docker build -t asia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/session/production -f apps/session/Dockerfile .
-          docker push asia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/session/production
+          docker buildx build --platform linux/amd64,linux/arm64 -t asia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/session/production -f apps/session/Dockerfile --push .
 
       - name: Build and push document Docker image
         run: |
-          docker build -t asia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/document/production -f apps/document/Dockerfile .
-          docker push asia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/document/production
+          docker buildx build --platform linux/amd64,linux/arm64 -t asia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/document/production -f apps/document/Dockerfile --push .
 
       - name: Build and push chatbot Docker image
         run: |
-          docker build -t asia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/chatbot/production -f apps/chatbot/Dockerfile .
-          docker push asia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/chatbot/production
+          docker buildx build --platform linux/amd64,linux/arm64 -t asia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/chatbot/production -f apps/chatbot/Dockerfile --push .

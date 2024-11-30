@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: chatbot
+  name: chatbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chatbot
+  template:
+    metadata:
+      labels:
+        app: chatbot
+    spec:
+      containers:
+        - image: asia-southeast1-docker.pkg.dev/uitwiki/chatbot/production
+          name: chatbot
+          env:
+            - name: CHATBOT_API_URL
+              valueFrom:
+                secretKeyRef:
+                  name: chatbot-api-url
+                  key: chatbotApiUrl
+            - name: CHATBOT_PORT
+              value: '3003'
+          ports:
+            - containerPort: 3003

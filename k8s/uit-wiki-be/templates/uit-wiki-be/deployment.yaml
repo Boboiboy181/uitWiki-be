@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: uit-wiki-be
+  name: uit-wiki-be
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uit-wiki-be
+  template:
+    metadata:
+      labels:
+        app: uit-wiki-be
+    spec:
+      containers:
+        - image: asia-southeast1-docker.pkg.dev/uitwiki/uit-wiki-be/production
+          name: uit-wiki-be
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb
+                  key: connectionString
+
+            - name: PORT
+              value: '3000'
+
+            - name: CHATBOT_HOST
+              value: chatbot
+            - name: CHATBOT_PORT
+              value: '3003'
+
+            - name: SESSION_HOST
+              value: session
+            - name: SESSION_PORT
+              value: '3002'
+
+            - name: AUTH_HOST
+              value: auth
+            - name: AUTH_PORT
+              value: '3001'
+
+            - name: DOCUMENT_HOST
+              value: document
+            - name: DOCUMENT_PORT
+              value: '3004'
+
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-key-id
+                  key: awsKeyId
+
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-secret-access-key
+                  key: awsSecretAccessKey
+
+            - name: AWS_REGION
+              value: ap-southeast-2
+
+            - name: AWS_BUCKET_NAME
+              value: uit-wiki
+
+            - name: AWS_PREFIX_NAME
+              value: pdf
+
+            - name: PINECONE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: pinecone-api-key
+                  key: pineconeApiKey

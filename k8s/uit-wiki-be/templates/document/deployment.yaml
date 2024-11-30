@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: document
+  name: document
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: document
+  template:
+    metadata:
+      labels:
+        app: document
+    spec:
+      containers:
+        - image: asia-southeast1-docker.pkg.dev/uitwiki/document/production
+          name: document
+          env:
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb
+                  key: connectionString
+            - name: DOCUMENT_PORT
+              value: '3004'
+          ports:
+            - containerPort: 3004
