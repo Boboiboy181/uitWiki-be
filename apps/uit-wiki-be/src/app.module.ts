@@ -1,4 +1,4 @@
-import { LoggerModule, SESSION_SERVICE, UploadModule } from '@app/common';
+import { HealthModule, LoggerModule, SESSION_SERVICE, UploadModule } from '@app/common';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
@@ -42,6 +42,7 @@ import { DocumentModule } from './document/document.module';
     UploadModule,
     AuthModule,
     ChatbotModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

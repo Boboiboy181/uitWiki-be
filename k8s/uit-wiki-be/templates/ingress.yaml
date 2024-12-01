@@ -6,11 +6,11 @@ spec:
   rules:
     - http:
         paths:
-          - path: /*
+          - path: /api/v1/*
             pathType: ImplementationSpecific
             backend:
               service:
-                name: reservations
+                name: uit-wiki-be
                 port:
                   number: 3000
           - path: /auth/*

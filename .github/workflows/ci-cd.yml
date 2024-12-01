@@ -9,7 +9,7 @@ on:
       - 'README.md'
       - 'Dockerfile'
       - '.github/workflows/*'
-      # - 'k8s/*'
+      - 'k8s/*'
 
 jobs:
   build:
