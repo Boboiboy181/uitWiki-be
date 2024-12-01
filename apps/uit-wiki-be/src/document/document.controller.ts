@@ -1,8 +1,10 @@
 import { JwtAuthGuard, Roles } from '@app/common';
 import { CreateDocumentDto, DocumentDto, UpdateDocumentDto } from '@app/common/dtos/document';
 import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { ApiCookieAuth } from '@nestjs/swagger';
 import { DocumentService } from './document.service';
 
+@ApiCookieAuth()
 @Controller('document')
 @UseGuards(JwtAuthGuard)
 @Roles('admin')

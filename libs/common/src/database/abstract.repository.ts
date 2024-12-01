@@ -1,5 +1,5 @@
 import { Logger, NotFoundException } from '@nestjs/common';
-import { FilterQuery, Model, Types, UpdateQuery } from 'mongoose';
+import { ClientSession, FilterQuery, Model, Types, UpdateQuery } from 'mongoose';
 import { AbstractDocument } from './abstract.schema';
 
 export abstract class AbstractRepository<TDocument extends AbstractDocument> {
@@ -55,5 +55,17 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
     }
 
     return document;
+  }
+
+  async startTransaction(): Promise<ClientSession> {
+    return this.model.startSession();
+  }
+
+  async commitTransaction(session: ClientSession): Promise<void> {
+    return session.commitTransaction();
+  }
+
+  async rollbackTransaction(session: ClientSession): Promise<void> {
+    return session.abortTransaction();
   }
 }

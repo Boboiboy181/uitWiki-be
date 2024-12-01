@@ -43,7 +43,7 @@ export class AppService {
     return messages[1];
   }
 
-  async createSession(): Promise<{ sessionId: string }> {
+  async createSession(): Promise<Partial<Session>> {
     const sessionId: string = await firstValueFrom(this.sessionService.send({ cmd: 'create_session' }, ''));
     return {
       sessionId,
