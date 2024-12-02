@@ -43,6 +43,8 @@ spec:
               value: auth-tcp
             - name: AUTH_PORT
               value: '3001'
+            - name: AUTH_URL
+              value: http://auth-http.default.svc.cluster.local:3005/auth/api-docs-json
 
             - name: DOCUMENT_HOST
               value: document

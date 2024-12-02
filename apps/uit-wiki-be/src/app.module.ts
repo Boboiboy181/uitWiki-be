@@ -22,6 +22,7 @@ import { DocumentModule } from './document/document.module';
         AWS_BUCKET_NAME: Joi.string().required(),
         AWS_REGION: Joi.string().required(),
         AWS_PREFIX_NAME: Joi.string().required(),
+        AUTH_URL: Joi.string().required(),
       }),
     }),
     ClientsModule.registerAsync([

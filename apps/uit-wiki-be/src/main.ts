@@ -1,5 +1,6 @@
 import { fetchSwaggerDocument, mergeSwaggerDocuments } from '@app/common/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
@@ -8,6 +9,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
 
   app.useLogger(app.get(Logger));
   app.use(cookieParser());
@@ -32,7 +34,7 @@ async function bootstrap() {
     .build();
   const document = () => SwaggerModule.createDocument(app, config);
 
-  const authSwaggerUrl = 'http://auth:3005/auth/api-docs-json';
+  const authSwaggerUrl = configService.get('AUTH_URL');
   const authDocument = await fetchSwaggerDocument(authSwaggerUrl);
 
   let mergeDocument = document();
