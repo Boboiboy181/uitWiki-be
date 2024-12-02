@@ -32,7 +32,7 @@ async function bootstrap() {
     .build();
   const document = () => SwaggerModule.createDocument(app, config);
 
-  const authSwaggerUrl = 'http://auth:3005/api-docs-json';
+  const authSwaggerUrl = 'http://auth:3005/auth/api-docs-json';
   const authDocument = await fetchSwaggerDocument(authSwaggerUrl);
 
   let mergeDocument = document();
@@ -41,7 +41,7 @@ async function bootstrap() {
     mergeDocument = mergeSwaggerDocuments(document(), authDocument);
   }
 
-  SwaggerModule.setup('api-docs', app, mergeDocument);
+  SwaggerModule.setup('/api/v1/api-docs', app, mergeDocument);
 
   await app.listen(3000);
 }

@@ -23,7 +23,6 @@ function mergeSwaggerDocuments(baseDocument: OpenAPIObject, additionalDocument: 
       schemas: { ...baseDocument.components?.schemas, ...additionalDocument.components?.schemas },
     },
   };
-  console.log('🚀 ~ mergeSwaggerDocuments ~ result:', result);
   return result;
 }
 

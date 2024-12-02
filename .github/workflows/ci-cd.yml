@@ -107,6 +107,11 @@ jobs:
         run: |
           kubectl apply -f ./k8s/uit-wiki-be/templates/ingress.yaml
 
+      - name: Config health check
+        run: |
+          kubectl apply -f ./k8s/uit-wiki-be/templates/auth/backend-config.yaml
+          kubectl apply -f ./k8s/uit-wiki-be/templates/uit-wiki-be/backend-config.yaml
+
       - name: 'Verify Deployment'
         run: |
           kubectl rollout status deployment/uit-wiki-be --namespace=default
