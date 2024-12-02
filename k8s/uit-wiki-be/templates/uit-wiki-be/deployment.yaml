@@ -15,7 +15,7 @@ spec:
         app: uit-wiki-be
     spec:
       containers:
-        - image: asia-southeast1-docker.pkg.dev/uitwiki/uit-wiki-be/production
+        - image: asia-southeast1-docker.pkg.dev/uitwiki/uit-wiki-be/production:latest
           name: uit-wiki-be
           ports:
             - containerPort: 3000

@@ -15,7 +15,7 @@ spec:
         app: chatbot
     spec:
       containers:
-        - image: asia-southeast1-docker.pkg.dev/uitwiki/chatbot/production
+        - image: asia-southeast1-docker.pkg.dev/uitwiki/chatbot/production:latest
           name: chatbot
           env:
             - name: CHATBOT_API_URL

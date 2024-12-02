@@ -15,7 +15,7 @@ spec:
         app: document
     spec:
       containers:
-        - image: asia-southeast1-docker.pkg.dev/uitwiki/document/production
+        - image: asia-southeast1-docker.pkg.dev/uitwiki/document/production:latest
           name: document
           env:
             - name: MONGODB_URI

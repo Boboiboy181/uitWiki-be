@@ -88,11 +88,11 @@ jobs:
 
       - name: Deploy deployment to GKE
         run: |
-          kubectl set image deployment/auth auth=asia-southeast1-docker.pkg.dev/uitwiki/auth/production --namespace=default
-          kubectl set image deployment/chatbot chatbot=asia-southeast1-docker.pkg.dev/uitwiki/chatbot/production --namespace=default
-          kubectl set image deployment/document document=asia-southeast1-docker.pkg.dev/uitwiki/document/production --namespace=default
-          kubectl set image deployment/session session=asia-southeast1-docker.pkg.dev/uitwiki/session/production --namespace=default
-          kubectl set image deployment/uit-wiki-be uit-wiki-be=asia-southeast1-docker.pkg.dev/uitwiki/uit-wiki-be/production --namespace=default
+          kubectl apply -f ./k8s/uit-wiki-be/templates/auth/deployment.yaml
+          kubectl apply -f ./k8s/uit-wiki-be/templates/chatbot/deployment.yaml
+          kubectl apply -f ./k8s/uit-wiki-be/templates/document/deployment.yaml
+          kubectl apply -f ./k8s/uit-wiki-be/templates/session/deployment.yaml
+          kubectl apply -f ./k8s/uit-wiki-be/templates/uit-wiki-be/deployment.yaml
 
       - name: Deploy service to GKE
         run: |

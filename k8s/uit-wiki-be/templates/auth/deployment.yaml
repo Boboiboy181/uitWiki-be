@@ -15,7 +15,7 @@ spec:
         app: auth
     spec:
       containers:
-        - image: asia-southeast1-docker.pkg.dev/uitwiki/auth/production
+        - image: asia-southeast1-docker.pkg.dev/uitwiki/auth/production:latest
           name: auth
           env:
             - name: MONGODB_URI

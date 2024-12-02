@@ -15,7 +15,7 @@ spec:
         app: session
     spec:
       containers:
-        - image: asia-southeast1-docker.pkg.dev/uitwiki/session/production
+        - image: asia-southeast1-docker.pkg.dev/uitwiki/session/production:latest
           name: session
           env:
             - name: MONGODB_URI
