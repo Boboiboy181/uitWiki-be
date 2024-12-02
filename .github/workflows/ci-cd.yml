@@ -103,6 +103,10 @@ jobs:
           kubectl apply -f ./k8s/uit-wiki-be/templates/session/service.yaml
           kubectl apply -f ./k8s/uit-wiki-be/templates/uit-wiki-be/service.yaml
 
+      - name: Apply Ingress
+        run: |
+          kubectl apply -f ./k8s/uit-wiki-be/templates/ingress.yaml
+
       - name: 'Verify Deployment'
         run: |
           kubectl rollout status deployment/uit-wiki-be --namespace=default
