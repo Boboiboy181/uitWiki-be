@@ -22,6 +22,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useLogger(app.get(Logger));
+  app.setGlobalPrefix('auth');
 
   const config = new DocumentBuilder()
     .setTitle('Auth Service API')
@@ -32,7 +33,7 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
 
-  app.getHttpAdapter().get('/api-docs-json', (req, res) => res.json(document));
+  app.getHttpAdapter().get('/auth/api-docs-json', (req, res) => res.json(document));
 
   await app.startAllMicroservices();
   await app.listen(configService.get('HTTP_PORT'));

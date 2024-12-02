@@ -13,8 +13,8 @@ spec:
                 name: uit-wiki-be
                 port:
                   number: 3000
-          - path: /*
-            pathType: ImplementationSpecific
+          - path: /auth/
+            pathType: Prefix
             backend:
               service:
                 name: auth-http
