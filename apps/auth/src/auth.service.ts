@@ -27,6 +27,7 @@ export class AuthService {
       expires,
       path: '/',
       sameSite: 'none',
+      secure: true,
     });
   }
 }
