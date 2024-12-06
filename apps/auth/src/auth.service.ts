@@ -25,6 +25,8 @@ export class AuthService {
     response.cookie('Authentication', token, {
       httpOnly: true,
       expires,
+      path: '/',
+      sameSite: 'lax',
     });
   }
 }
