@@ -26,7 +26,7 @@ export class AuthService {
       httpOnly: true,
       expires,
       path: '/',
-      sameSite: 'lax',
+      sameSite: 'none',
     });
   }
 }
