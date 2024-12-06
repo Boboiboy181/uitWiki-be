@@ -107,10 +107,17 @@ jobs:
         run: |
           kubectl apply -f ./k8s/uit-wiki-be/templates/ingress.yaml
 
-      - name: 'Verify Deployment'
+      - name: 'Restart and Verify Deployment'
         run: |
+          kubectl rollout restart deployment/uit-wiki-be --namespace=default
+          kubectl rollout restart deployment/auth --namespace=default
+          kubectl rollout restart deployment/session --namespace=default
+          kubectl rollout restart deployment/document --namespace=default
+          kubectl rollout restart deployment/chatbot --namespace=default
+      
           kubectl rollout status deployment/uit-wiki-be --namespace=default
           kubectl rollout status deployment/auth --namespace=default
           kubectl rollout status deployment/session --namespace=default
           kubectl rollout status deployment/document --namespace=default
           kubectl rollout status deployment/chatbot --namespace=default
+
