@@ -1,0 +1,7 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: uitwiki-ssl-cert
+spec:
+  domains:
+    - wikichatbot.uit.io.vn

@@ -27,6 +27,7 @@ async function bootstrap() {
   });
 
   const config = new DocumentBuilder()
+    .addCookieAuth('Authentication')
     .setTitle('UIT Wiki API')
     .setDescription('The UIT Wiki API description')
     .setVersion('1.0')

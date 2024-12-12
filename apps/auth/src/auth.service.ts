@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { Response } from 'express';
 import { TokenPayload } from './types/token-payload.type';
 import { UserDocument } from './users/models/users.schema';
 
@@ -10,9 +9,10 @@ export class AuthService {
   constructor(
     private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
+    // eslint-disable-next-line prettier/prettier
   ) {}
 
-  async login(user: UserDocument, response: Response) {
+  async login(user: UserDocument) {
     const tokenPayload: TokenPayload = {
       userId: user._id.toHexString(),
     };
@@ -22,12 +22,6 @@ export class AuthService {
 
     const token = this.jwtService.sign(tokenPayload);
 
-    response.cookie('Authentication', token, {
-      httpOnly: true,
-      expires,
-      path: '/',
-      sameSite: 'none',
-      secure: true,
-    });
+    return token;
   }
 }
