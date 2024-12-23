@@ -18,33 +18,50 @@ export class DocumentService {
   }
 
   async create(createDocumentDto: CreateDocumentDto): Promise<DocumentDto> {
-    const document = await firstValueFrom(
-      this.documentService.send<DocumentDto>('createDocument', createDocumentDto).pipe(
-        map((res) => {
-          return res;
-        }),
-      ),
-    );
-    const upsertDocumentDto: UpsertDocumentDto = {
-      documentKey: createDocumentDto.documentKey,
-      metadata: {
-        ...createDocumentDto.metadata,
-        documentId: document._id,
-      },
-    };
-    await firstValueFrom(this.chatbotService.send<string>('upsertDocument', upsertDocumentDto).pipe(map((res) => res)));
+    let document: DocumentDto;
+    try {
+      document = await firstValueFrom(
+        this.documentService.send<DocumentDto>('createDocument', createDocumentDto).pipe(
+          map((res) => {
+            return res;
+          }),
+        ),
+      );
+      const upsertDocumentDto: UpsertDocumentDto = {
+        documentKey: createDocumentDto.documentKey,
+        parseType: createDocumentDto.parseType,
+        metadata: {
+          ...createDocumentDto.metadata,
+          documentId: document._id,
+          documentUrl: createDocumentDto.documentUrl,
+        },
+      };
+      await firstValueFrom(
+        this.chatbotService.send<string>('upsertDocument', upsertDocumentDto).pipe(map((res) => res)),
+      );
 
-    return document;
+      return document;
+    } catch (error) {
+      await this.hardRemove(document._id);
+    }
   }
 
   async remove(_id: string): Promise<any> {
-    const query: VectorQueryDto = {
-      indexName: 'nestjs',
-      filter: {
-        documentId: _id,
-      },
-    };
-    const response = await this.pineconeService.queryVectors(query);
-    return response;
+    try {
+      const query: VectorQueryDto = {
+        indexName: 'cohere',
+        filter: {
+          documentId: _id,
+        },
+      };
+      await this.pineconeService.queryVectors(query);
+      return await firstValueFrom(this.documentService.send('removeDocument', _id).pipe(map((res) => res)));
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async hardRemove(_id: string): Promise<any> {
+    return await firstValueFrom(this.documentService.send('hardRemove', _id).pipe(map((res) => res)));
   }
 }

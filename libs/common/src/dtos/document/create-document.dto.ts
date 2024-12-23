@@ -10,6 +10,11 @@ export class CreateDocumentDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
+  parseType: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
   documentKey: string;
 
   @ApiProperty()

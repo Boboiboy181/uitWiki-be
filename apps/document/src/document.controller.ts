@@ -30,4 +30,9 @@ export class DocumentController {
   remove(_id: string) {
     return this.documentService.remove(_id);
   }
+
+  @MessagePattern('hardRemoveDocument')
+  hardRemove(_id: string) {
+    return this.documentService.hardRemove(_id);
+  }
 }

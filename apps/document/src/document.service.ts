@@ -27,4 +27,8 @@ export class DocumentService {
   async remove(_id: string) {
     return await this.documentRepository.findOneAndUpdate({ _id }, { isDeleted: true });
   }
+
+  async hardRemove(_id: string) {
+    return await this.documentRepository.findOneAndDelete({ _id });
+  }
 }

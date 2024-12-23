@@ -5,6 +5,10 @@ export class UpsertDocumentDto {
   @IsNotEmpty()
   documentKey: string;
 
+  @IsString()
+  @IsNotEmpty()
+  parseType: string;
+
   @IsObject()
   @IsNotEmpty()
   metadata: Record<string, any>;

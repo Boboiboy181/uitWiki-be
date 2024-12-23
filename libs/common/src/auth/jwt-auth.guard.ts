@@ -1,6 +1,7 @@
 import { CanActivate, ExecutionContext, Inject, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { ClientProxy } from '@nestjs/microservices';
+import { Request } from 'express';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { AUTH_SERVICE } from '../constants';
 import { UserDto } from '../dtos';
@@ -15,17 +16,15 @@ export class JwtAuthGuard implements CanActivate {
   ) {}
 
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
-    const jwt = context.switchToHttp().getRequest().cookies?.Authentication;
-
-    if (!jwt) {
-      throw new UnauthorizedException();
-    }
+    const request = context.switchToHttp().getRequest();
+    // const jwt = request.cookies?.Authentication;
+    const token = this.extractTokenFromHeader(request);
 
     const roles =
       this.reflector.get<string[]>('roles', context.getHandler()) ||
       this.reflector.get<string[]>('roles', context.getClass());
 
-    return this.authClient.send<UserDto>({ cmd: 'authenticate' }, { Authentication: jwt }).pipe(
+    return this.authClient.send<UserDto>({ cmd: 'authenticate' }, { Authentication: token }).pipe(
       tap((res) => {
         if (roles) {
           for (const role of roles) {
@@ -43,5 +42,10 @@ export class JwtAuthGuard implements CanActivate {
         return of(false);
       }),
     );
+  }
+
+  private extractTokenFromHeader(request: Request): string | undefined {
+    const [type, token] = request.headers.authorization?.split(' ') ?? [];
+    return type === 'Bearer' ? token : undefined;
   }
 }
