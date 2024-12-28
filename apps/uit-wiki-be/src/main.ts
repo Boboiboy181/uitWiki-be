@@ -21,13 +21,17 @@ async function bootstrap() {
   );
   app.setGlobalPrefix('api/v1');
   app.enableCors({
-    origin: ['http://localhost:5173'],
+    origin: [
+      'http://localhost:5173',
+      'https://uit-wiki-fe-git-dev-boboiboy181s-projects.vercel.app',
+      'https://uit-wiki-fe.vercel.app',
+    ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
 
   const config = new DocumentBuilder()
-    .addCookieAuth('Authentication')
+    .addBearerAuth()
     .setTitle('UIT Wiki API')
     .setDescription('The UIT Wiki API description')
     .setVersion('1.0')
