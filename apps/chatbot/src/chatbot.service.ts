@@ -1,4 +1,4 @@
-import { UpsertDocumentDto } from '@app/common/dtos/document';
+import { CreateCacheDto, UpdateCacheDto, UpsertDocumentDto } from '@app/common';
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -39,6 +39,61 @@ export class ChatbotService {
     try {
       const { data } = await firstValueFrom(
         this.httpService.post(`${this.chatbot_service_url}/pinecone/upsert`, upsertDocumentDto),
+      );
+      return data;
+    } catch (error) {
+      throw new Error(`Chatbot service error: ${error.message}`);
+    }
+  }
+
+  async findAllCachedKeys() {
+    try {
+      const { data } = await firstValueFrom(
+        this.httpService.get(`${this.chatbot_service_url}/redis/keys?no_embedding=true`),
+      );
+      return data;
+    } catch (error) {
+      throw new Error(`Chatbot service error: ${error.message}`);
+    }
+  }
+
+  async findOneCachedKey(_id: string) {
+    try {
+      const { data } = await firstValueFrom(
+        this.httpService.get(`${this.chatbot_service_url}/redis/get/${_id}?no_embedding=true`),
+      );
+      return data;
+    } catch (error) {
+      throw new Error(`Chatbot service error: ${error.message}`);
+    }
+  }
+
+  async createCachedKey(createCacheDto: CreateCacheDto) {
+    try {
+      const { data } = await firstValueFrom(
+        this.httpService.post(`${this.chatbot_service_url}/redis/set?no_embedding=true`, createCacheDto),
+      );
+      return data;
+    } catch (error) {
+      throw new Error(`Chatbot service error: ${error.message}`);
+    }
+  }
+
+  async updateCachedKey(_id: string, updateCacheDto: UpdateCacheDto) {
+    try {
+      const { data } = await firstValueFrom(
+        this.httpService.put(`${this.chatbot_service_url}/redis/update/${_id}?no_embedding=true`, updateCacheDto),
+      );
+      return data;
+    } catch (error) {
+      throw new Error(`Chatbot service error: ${error.message}`);
+    }
+  }
+
+  async removeCachedKey(_id: string) {
+    try {
+      const { data } = await firstValueFrom(
+        this.httpService.delete(`${this.chatbot_service_url}/redis/delete/${_id}?no_embedding=true`),
       );
       return data;
     } catch (error) {
