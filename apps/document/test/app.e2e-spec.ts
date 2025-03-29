@@ -1,21 +1,21 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { DocumentModule } from './../src/document.module';
+import { INestApplication } from '@nestjs/common'
+import { Test, TestingModule } from '@nestjs/testing'
+import * as request from 'supertest'
+import { DocumentModule } from './../src/document.module'
 
 describe('DocumentController (e2e)', () => {
-  let app: INestApplication;
+    let app: INestApplication
 
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [DocumentModule],
-    }).compile();
+    beforeEach(async () => {
+        const moduleFixture: TestingModule = await Test.createTestingModule({
+            imports: [DocumentModule],
+        }).compile()
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
-  });
+        app = moduleFixture.createNestApplication()
+        await app.init()
+    })
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer()).get('/').expect(200).expect('Hello World!');
-  });
-});
+    it('/ (GET)', () => {
+        return request(app.getHttpServer()).get('/').expect(200).expect('Hello World!')
+    })
+})

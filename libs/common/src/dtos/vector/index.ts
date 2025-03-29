@@ -1,1 +1,1 @@
-export * from './vector-query.dto';
+export * from './vector-query.dto'

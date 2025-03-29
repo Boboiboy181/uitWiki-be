@@ -1,11 +1,11 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator'
 
 export class CreateCacheDto {
-  @IsString()
-  @IsNotEmpty()
-  question: string;
+    @IsString()
+    @IsNotEmpty()
+    question: string
 
-  @IsString()
-  @IsNotEmpty()
-  response: string;
+    @IsString()
+    @IsNotEmpty()
+    response: string
 }
