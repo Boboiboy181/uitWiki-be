@@ -37,3 +37,11 @@ This project is ideal for:
 - Mongo DB & Redis
 - Swagger for API Documentation
 - Kubernetes for managing Containers
+
+## How to run
+1. Fill in the env variable in each service.
+2. Run this command
+```terminal
+docker-compose up --build
+```
+3. Enjoy
