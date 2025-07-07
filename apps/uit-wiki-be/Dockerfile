@@ -1,20 +1,24 @@
 FROM node:alpine AS development
 
+RUN corepack enable
+
 WORKDIR /usr/src/app
 
-COPY package.json ./
-COPY yarn.lock ./
+COPY package.json yarn.lock .yarnrc.yml ./
+COPY .yarn .yarn
+
+RUN yarn install
+
 COPY tsconfig.json tsconfig.json
 COPY nest-cli.json nest-cli.json
-
-RUN yarn install 
-
 COPY apps/uit-wiki-be apps/uit-wiki-be
 COPY libs libs
 
 RUN yarn build uit-wiki-be 
 
 FROM node:alpine AS production
+
+RUN corepack enable
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}

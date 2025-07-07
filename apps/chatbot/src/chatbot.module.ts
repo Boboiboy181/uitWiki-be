@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import * as Joi from 'joi'
 import { ChatbotController } from './chatbot.controller'
+import { ChatbotGateway } from './chatbot.gateway'
 import { ChatbotService } from './chatbot.service'
 
 @Module({
@@ -20,6 +21,6 @@ import { ChatbotService } from './chatbot.service'
         HttpModule,
     ],
     controllers: [ChatbotController],
-    providers: [ChatbotService],
+    providers: [ChatbotService, ChatbotGateway],
 })
 export class ChatbotModule {}

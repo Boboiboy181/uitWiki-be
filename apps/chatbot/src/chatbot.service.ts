@@ -26,7 +26,9 @@ export class ChatbotService {
 
         try {
             const { data } = await firstValueFrom(
-                this.httpService.post(`${this.chatbot_service_url}/chat_bot/send_message`, dataToSent),
+                this.httpService.post(`${this.chatbot_service_url}/chat_bot/send_message`, dataToSent, {
+                    responseType: 'stream',
+                }),
             )
             return data.response
         } catch (error) {
