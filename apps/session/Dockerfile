@@ -9,12 +9,7 @@ COPY .yarn .yarn
 
 RUN yarn install
 
-COPY tsconfig.json tsconfig.json
-COPY nest-cli.json nest-cli.json
-COPY apps/session apps/session
-COPY libs libs
-
-RUN yarn build session 
+CMD ["yarn", "start:dev", "session"]
 
 FROM node:alpine AS production
 

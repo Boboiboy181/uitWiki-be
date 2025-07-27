@@ -9,12 +9,7 @@ COPY .yarn .yarn
 
 RUN yarn install
 
-COPY tsconfig.json tsconfig.json
-COPY nest-cli.json nest-cli.json
-COPY apps/uit-wiki-be apps/uit-wiki-be
-COPY libs libs
-
-RUN yarn build uit-wiki-be 
+CMD ["yarn", "start:dev", "uit-wiki-be"]
 
 FROM node:alpine AS production
 

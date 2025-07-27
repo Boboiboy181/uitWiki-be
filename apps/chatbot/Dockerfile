@@ -9,12 +9,7 @@ COPY .yarn .yarn
 
 RUN yarn install
 
-COPY tsconfig.json tsconfig.json
-COPY nest-cli.json nest-cli.json
-COPY apps/chatbot apps/chatbot
-COPY libs libs
-
-RUN yarn build chatbot
+CMD ["yarn", "start:dev", "chatbot"]
 
 FROM node:alpine AS production
 

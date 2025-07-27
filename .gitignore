@@ -37,3 +37,9 @@ lerna-debug.log*
 # ENV
 .env.local
 .env
+
+# yarn
+/.yarn
+
+# turbo
+.turbo

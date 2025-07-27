@@ -4,33 +4,36 @@ services:
       context: .
       dockerfile: ./apps/chatbot/Dockerfile
       target: development
-    command: yarn start:dev chatbot
     env_file:
       - ./apps/chatbot/.env
     ports:
       - '3003:3003'
     volumes:
       - .:/usr/src/app
+    working_dir: /usr/src/app/apps/chatbot
+    environment:
+      - CHOKIDAR_USEPOLLING=true
 
   session:
     build:
       context: .
       dockerfile: ./apps/session/Dockerfile
       target: development
-    command: yarn start:dev session
     env_file:
       - ./apps/session/.env
     ports:
       - '3002:3002'
     volumes:
       - .:/usr/src/app
+    working_dir: /usr/src/app/apps/session
+    environment:
+      - CHOKIDAR_USEPOLLING=true
 
   auth:
     build:
       context: .
       dockerfile: ./apps/auth/Dockerfile
       target: development
-    command: yarn start:dev auth
     env_file:
       - ./apps/auth/.env
     ports:
@@ -38,19 +41,24 @@ services:
       - '3005:3005'
     volumes:
       - .:/usr/src/app
+    working_dir: /usr/src/app/apps/auth
+    environment:
+      - CHOKIDAR_USEPOLLING=true
 
   document:
     build:
       context: .
       dockerfile: ./apps/document/Dockerfile
       target: development
-    command: yarn start:dev document
     env_file:
       - ./apps/document/.env
     ports:
       - '3004:3004'
     volumes:
       - .:/usr/src/app
+    working_dir: /usr/src/app/apps/document
+    environment:
+      - CHOKIDAR_USEPOLLING=true
 
   uit-wiki-be:
     build:
@@ -62,10 +70,13 @@ services:
       - chatbot
       - auth
       - document
-    command: yarn start:dev uit-wiki-be
     env_file:
       - ./apps/uit-wiki-be/.env
     ports:
       - '3000:3000'
     volumes:
       - .:/usr/src/app
+    working_dir: /usr/src/app/apps/uit-wiki-be
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    user: node

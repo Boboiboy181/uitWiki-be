@@ -1,6 +1,6 @@
 import { CreateCacheDto, UpdateCacheDto } from '@app/common'
-import { Message } from '@app/common/types'
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common'
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query, Sse } from '@nestjs/common'
+import { Observable } from 'rxjs'
 import { ChatbotService } from './chatbot.service'
 import { SendMessageDto } from './dtos/send-message.dto'
 
@@ -10,10 +10,15 @@ export class ChatbotController {
 
     constructor(private readonly chatbotService: ChatbotService) {}
 
-    @Post('/send_message')
-    @HttpCode(200)
-    async sendMessage(@Body() sendMessageDto: SendMessageDto): Promise<Message> {
-        return await this.chatbotService.sendMessage(sendMessageDto)
+    // @Post('/send_message')
+    // @HttpCode(200)
+    // async sendMessage(@Body() sendMessageDto: SendMessageDto): Promise<Message> {
+    //     return await this.chatbotService.sendMessage(sendMessageDto)
+    // }
+
+    @Sse('send_message_stream')
+    sendMessageStream(@Query() query: SendMessageDto): Promise<Observable<MessageEvent>> {
+        return this.chatbotService.getMessageStream(query)
     }
 
     @Get('/redis')

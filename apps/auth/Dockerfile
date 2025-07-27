@@ -9,12 +9,7 @@ COPY .yarn .yarn
 
 RUN yarn install
 
-COPY tsconfig.json tsconfig.json
-COPY nest-cli.json nest-cli.json
-COPY apps/auth apps/auth
-COPY libs libs
-
-RUN yarn build auth 
+CMD ["yarn", "start:dev", "auth"]
 
 FROM node:alpine AS production
 
